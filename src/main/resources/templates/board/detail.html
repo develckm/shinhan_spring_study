@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세</title>
+</head>
+<body>
+    <h1>게시글 상세 및 수정</h1>
+    <form action="/board/modify.do" method="post">
+        <div>
+            <label> id :
+                <input type="text" th:value="${b.bId}" name="bId" readonly>
+            </label>
+        </div>
+        <div>
+            <label> uId :
+                <input type="text" th:value="${b.uId}" name="uId" readonly>
+            </label>
+        </div>
+        <div>
+            <label> title :
+                <input type="text" th:value="${b.title}" name="title">
+            </label>
+        </div>
+            <label> content :
+                <textarea type="text" th:text="${b.content}" name="content"></textarea>
+            </label>
+        </div>
+        <div>작성자아이디 : <th:block th:text="${b.user.uId}"></th:block></div>
+        <div>작성자이름 : <th:block th:text="${b.user.name}"></th:block></div>
+        <div>작성자이메일 : <th:block th:text="${b.user.email}"></th:block></div>
+        <div>등록일 : <th:block th:text="${b.postTime}"></th:block></div>
+        <div>
+            수정일 : <th:block th:text="${b.updateTime}"></th:block>
+            <!--   문자열 ->java.util.Date 객체로 자동파싱        -->
+            <!--   <input type="datetime-local" name="updateTime">-->
+        </div>
+        <div>
+            <label>
+                상태
+                <select name="status">
+                    <option value="PUBLIC" th:selected="${(b.status=='PUBLIC')}">공개</option>
+                    <option value="PRIVATE" th:selected="${#strings.equals(b.status,'PRIVATE')}">비공개</option>
+                    <option value="REPORT" th:selected="${#strings.equals(b.status,'REPORT')}">신고</option>
+                    <option value="BLOCK" th:selected="${#strings.equals(b.status,'BLOCK')}">차단</option>
+                </select>
+            </label>
+        </div>
+        <div>조회수 : <th:block th:text="${b.viewCount}"></th:block></div>
+        <div>
+            <a href="">삭제</a>
+            <button>수정</button>
+        </div>
+    </form>
+</body>
+</html>

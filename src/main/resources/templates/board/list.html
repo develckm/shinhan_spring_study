@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 리스트</title>
+</head>
+<body>
+    <h1>게시글 리스트</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>no</th>
+            <th>작성자</th>
+            <th>title</th>
+            <th>작성일</th>
+            <th>조회수</th>
+            <th>상세보기</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="b:${boards}">
+            <td th:text="${b.bId}"></td>
+            <td>
+                <strong th:text="${b.uId}"></strong>
+                <!-- (<span th:text="${b.user.name}"></span>)-->
+            </td>
+            <td th:text="${b.title}"></td>
+            <td th:text="${b.status}"></td>
+            <td th:text="${#dates.format(b.postTime,'MM월dd일 HH:mm:ss')}"></td>
+            <td th:text="${b.viewCount}"></td>
+            <!--   타임리프는 주소를 무조건 규칙대로  (!URLEncoding 자동으로 해준다.)  -->
+            <td>
+                <a th:href="@{'/board/detail.do'(bId=${b.bId})}">
+                    상세보기
+                </a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</body>
+</html>
